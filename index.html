@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <button id="add-product">+ Tambah Product</button>
+    <button id="add-product" type="button">+ Tambah Product</button>
     <button id="calculate-total" type="button">Total</button>
 
     <div class="form-group">
@@ -63,7 +63,8 @@
             return new Intl.NumberFormat('en-US').format(value);
         }
 
-        document.getElementById('add-product').addEventListener('click', () => {
+        document.getElementById('add-product').addEventListener('click', (event) => {
+            event.preventDefault();
             const container = document.getElementById('product-container');
             const productDiv = document.createElement('div');
             productDiv.className = 'product form-group';
@@ -101,6 +102,12 @@
 
         document.querySelectorAll('.formatted-input').forEach(input => {
             input.addEventListener('input', () => formatNumberInput(input));
+        });
+
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+            });
         });
     </script>
 </body>
