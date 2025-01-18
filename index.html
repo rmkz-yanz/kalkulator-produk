@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product {
+            margin-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalkulator Harga Produk</h1>
+
+    <div id="product-container">
+        <div class="product form-group">
+            <label>Harga: </label>
+            <input type="text" class="price formatted-input" placeholder="Maukan harga" oninput="formatNumberInput(this)">
+            <label>Jumlah: </label>
+            <input type="number" class="quantity" placeholder="Jumlah produk" min="0" step="1">
+        </div>
+    </div>
+
+    <button id="add-product">+ Tambah Product</button>
+    <button id="calculate-total">Total</button>
+
+    <div class="form-group">
+        <label>Jumlah Total: </label>
+        <span id="total-amount">0.00</span>
+    </div>
+
+    <div class="form-group">
+        <label>Uang Cash: </label>
+        <input type="text" id="cash-given" class="formatted-input" placeholder="Jumlah Uang" oninput="formatNumberInput(this)">
+    </div>
+
+    <button id="calculate-change">Hitung kembalian</button>
+
+    <div class="form-group">
+        <label>Kembalian: </label>
+        <span id="change">0.00</span>
+    </div>
+
+    <script>
+        function formatNumberInput(input) {
+            const value = input.value.replace(/\D/g, '');
+            input.value = new Intl.NumberFormat('en-US').format(value);
+        }
+
+        function formatNumber(value) {
+            return new Intl.NumberFormat('en-US').format(value);
+        }
+
+        document.getElementById('add-product').addEventListener('click', () => {
+            const container = document.getElementById('product-container');
+            const productDiv = document.createElement('div');
+            productDiv.className = 'product form-group';
+            productDiv.innerHTML = `
+                <label>Harga: </label>
+                <input type="text" class="price formatted-input" placeholder="Masukan harga" oninput="formatNumberInput(this)">
+                <label>Jumlah: </label>
+                <input type="number" class="quantity" placeholder="Jumlah produk" min="0" step="1">
+            `;
+            container.appendChild(productDiv);
+        });
+
+        document.getElementById('calculate-total').addEventListener('click', () => {
+            let total = 0;
+            const prices = document.querySelectorAll('.price');
+            const quantities = document.querySelectorAll('.quantity');
+
+            prices.forEach((priceInput, index) => {
+                const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                const quantity = parseInt(quantities[index].value) || 0;
+                total += price * quantity;
+            });
+
+            document.getElementById('total-amount').textContent = formatNumber(total.toFixed(2));
+        });
+
+        document.getElementById('calculate-change').addEventListener('click', () => {
+            const total = parseFloat(document.getElementById('total-amount').textContent.replace(/,/g, '')) || 0;
+            const cashGiven = parseFloat(document.getElementById('cash-given').value.replace(/,/g, '')) || 0;
+            const change = cashGiven - total;
+            document.getElementById('change').textContent = change >= 0 ? formatNumber(change.toFixed(2)) : `Kurang ${formatNumber(Math.abs(change).toFixed(2))}`;
+        });
+
+        document.querySelectorAll('.formatted-input').forEach(input => {
+            input.addEventListener('input', () => formatNumberInput(input));
+        });
+    </script>
+</body>
+</html>
