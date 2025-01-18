@@ -34,7 +34,7 @@
     </div>
 
     <button id="add-product">+ Tambah Product</button>
-    <button id="calculate-total">Total</button>
+    <button id="calculate-total" type="button">Total</button>
 
     <div class="form-group">
         <label>Jumlah Total: </label>
@@ -46,7 +46,7 @@
         <input type="text" id="cash-given" class="formatted-input" placeholder="Jumlah Uang" oninput="formatNumberInput(this)" inputmode="numeric">
     </div>
 
-    <button id="calculate-change">Hitung kembalian</button>
+    <button id="calculate-change" type="button">Hitung kembalian</button>
 
     <div class="form-group">
         <label>Kembalian: </label>
@@ -76,7 +76,8 @@
             container.appendChild(productDiv);
         });
 
-        document.getElementById('calculate-total').addEventListener('click', () => {
+        document.getElementById('calculate-total').addEventListener('click', (event) => {
+            event.preventDefault();
             let total = 0;
             const prices = document.querySelectorAll('.price');
             const quantities = document.querySelectorAll('.quantity');
@@ -90,7 +91,8 @@
             document.getElementById('total-amount').textContent = formatNumber(total.toFixed(2));
         });
 
-        document.getElementById('calculate-change').addEventListener('click', () => {
+        document.getElementById('calculate-change').addEventListener('click', (event) => {
+            event.preventDefault();
             const total = parseFloat(document.getElementById('total-amount').textContent.replace(/,/g, '')) || 0;
             const cashGiven = parseFloat(document.getElementById('cash-given').value.replace(/,/g, '')) || 0;
             const change = cashGiven - total;
