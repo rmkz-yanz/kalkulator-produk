@@ -27,9 +27,9 @@
     <div id="product-container">
         <div class="product form-group">
             <label>Harga: </label>
-            <input type="text" class="price formatted-input" placeholder="Maukan harga" oninput="formatNumberInput(this)">
+            <input type="text" class="price formatted-input" placeholder="Maukan harga" oninput="formatNumberInput(this)" inputmode="numeric">
             <label>Jumlah: </label>
-            <input type="number" class="quantity" placeholder="Jumlah produk" min="0" step="1">
+            <input type="number" class="quantity" placeholder="Jumlah produk" min="0" step="1" inputmode="numeric">
         </div>
     </div>
 
@@ -43,7 +43,7 @@
 
     <div class="form-group">
         <label>Uang Cash: </label>
-        <input type="text" id="cash-given" class="formatted-input" placeholder="Jumlah Uang" oninput="formatNumberInput(this)">
+        <input type="text" id="cash-given" class="formatted-input" placeholder="Jumlah Uang" oninput="formatNumberInput(this)" inputmode="numeric">
     </div>
 
     <button id="calculate-change">Hitung kembalian</button>
@@ -69,9 +69,9 @@
             productDiv.className = 'product form-group';
             productDiv.innerHTML = `
                 <label>Harga: </label>
-                <input type="text" class="price formatted-input" placeholder="Masukan harga" oninput="formatNumberInput(this)">
+                <input type="text" class="price formatted-input" placeholder="Masukan harga" oninput="formatNumberInput(this)" inputmode="numeric">
                 <label>Jumlah: </label>
-                <input type="number" class="quantity" placeholder="Jumlah produk" min="0" step="1">
+                <input type="number" class="quantity" placeholder="Jumlah produk" min="0" step="1" inputmode="numeric">
             `;
             container.appendChild(productDiv);
         });
